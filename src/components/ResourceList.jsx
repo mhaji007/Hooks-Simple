@@ -4,40 +4,27 @@ import axios from 'axios';
 
  const ResourceList = ({resource}) => {
 
-    // state = {resources: []};
-
     const [resources, setResources] = useState([]);
 
-    const fetchResource = async(resource) => {
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/${resource}`);
-        setResources(response.data);
-    };
+    useEffect(
+        () => {
+         (async resource => {
+            const response = await axios.get(`https://jsonplaceholder.typicode.com/${resource}`
+            );
+            setResources(response.data);
+        })(resource)
+    
+    },
+     [resource]
+     );
 
-    useEffect(() => {
-        fetchResource(resource)
-    }, [resource])
+    return (
+    <ul>
+        {resources.map(record => <li key={record.id}>{record.title}</li>)}
+    </ul>
+    );
 
-    return <div>{resources.length}</div>
-
-}
-
-
-
-    // async componentDidUpdate (prevProps) {
-    //     if(prevProps.resource !== this.props.resource) {
-    //         const response = await axios.get(`https://jsonplaceholder.typicode.com/${this.props.resource}`);
-        
-    //     this.setState({resources:response.data});
-    //     }
-
-
-    // async componentDidUpdate (){
-        // const response = await axios.get(`https://jsonplaceholder.typicode.com/${this.props.resource}`)
-        
-        // this.setState({resources:response.data});
-        
-    // }
-
+};
 
 
  
