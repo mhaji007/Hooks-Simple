@@ -15,7 +15,7 @@ import axios from 'axios';
 
     useEffect(() => {
         fetchResource(resource)
-    }, [])
+    }, [resource])
 
     return <div>{resources.length}</div>
 
